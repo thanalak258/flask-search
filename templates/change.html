@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='scam.css') }}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<title>Change Password</title>
+</head>
+<body>
+	<div class="dropdown">
+		<nav>
+			<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/True_Corporation_%28Thailand%29.svg/1280px-True_Corporation_%28Thailand%29.svg.png">
+			<ul>
+				<li><a href="/seach">Search</a></li>
+				<li>|</li>
+				<li><a href="/changePassword">Change Password</a></li>
+				<li>|</li>
+				<li><a href="/logout">Log out</a></li>
+			</ul>
+		</nav>
+	</div>
+    <!-- Alert error input -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'error' %}
+            <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                {{ message }}
+                 <span aria-hidden="true">&times;</span>
+            </div>
+            {% else %}
+            <div class="alert alert-success alter-dismissable fade show" role="alert">
+                {{ message }}
+                <span aria-hidden="true">&times;</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+	<div id="page">
+		<div class="background">
+			<div class="wrap">
+				<div class="excard">
+					<h2>Change Your Password</h2>
+					<!-- card input -->
+					<form action="" method="POST">
+						<div class="form">
+							<div class="space icon">
+								<label class="label">New Password</label>
+								<input type="text" class="input" name="new_password" placeholder="New Password" autocomplete="off">
+								<i class="fa-solid fa-lock"></i>
+							</div>
+							<div class="space icon">
+								<label class="label">Confirm Password</label>
+								<input type="text" class="input" name="confirm_password" placeholder="Confirm Password" autocomplete="off">
+								<i class="fa-solid fa-lock"></i>
+							</div>
+							<div class="d-grid gap-2 col-6 mx-auto">
+								<button class="btn btn-primary" type="submit" name="search">Change my password</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- table data from mysql -->
+			<hr>
+			<div class="blank"></div>
+		</div>
+		<!-- Boostrap-->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+		<!-- Fontawesome-->
+		<script src="https://kit.fontawesome.com/477a221cb0.js" crossorigin="anonymous"></script>
+		<!-- Vanta -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
+		<script>
+			VANTA.CLOUDS({
+				el: "#page",
+				mouseControls: true,
+				touchControls: true,
+				gyroControls: false,
+				minHeight: 200.00,
+				minWidth: 200.00
+			})
+		</script>
+	</body>
+</html>

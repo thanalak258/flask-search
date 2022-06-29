@@ -1,0 +1,199 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+.excard {
+	background: #f8f8f8;
+	max-width: 500px;
+	margin: auto;
+	height: auto;
+	padding: 35px;
+	padding-top: 70px;
+	border-radius: 5px;
+	position: relative;
+}
+
+.excard h2{
+	text-align: center;
+	letter-spacing: 2px;
+	margin-bottom: 40px;
+	color: #0d3c64;
+	font-size: 2vw;
+}
+
+.form .label{
+	display: block;
+	color: #555555;
+	margin-bottom: 6px;
+}
+
+.form .input{
+	padding: 13px 0 13px 25px;
+	width: 100%;
+	text-align: center;
+	border: 2px solid #dddddd;
+	border-radius: 5px;
+	letter-spacing: 1px;
+	word-wrap: 3px;
+	outline: none;
+	font-size: 16px;
+	color: #555555;
+}
+
+.input:focus{
+	border-color: rgb(37 99 235);
+}
+
+.flexbox {
+	display: flex;
+	box-sizing: content-box;
+}
+
+.space{
+	margin-bottom: 20px;
+}
+
+.icon{
+	position: relative;
+}
+
+.icon .fa-phone{
+	position: absolute;
+	bottom: 12px;
+	left: 15px;
+	font-size: 20px;
+	color: #555555;
+	margin-bottom: 5px;
+}
+
+.btn{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#page {
+	width: 100%;
+	height: 100vh;
+}
+
+.background{
+	margin: auto;
+	width: 50%;
+	padding: 115px;
+}
+
+.blank {
+	padding: 50px;
+}
+
+table.dataframe, .dataframe, .dataframe td {
+	border: 5px;
+	border-bottom: 1px solid #C8C8C8;
+	border-collapse: collapse;
+	padding: 20px;
+	margin-bottom: 40px;
+	font-size: 0.9em;
+	text-align: center;
+	background-color: white;
+}
+
+th {
+	background-color: rgb(59 130 246);
+	color: white;
+}
+
+tr:nth-child(odd)		{ background-color:#eee; }
+tr:nth-child(even)	{ background-color:#fff; }
+  
+tr:hover            { background-color: #ffff99;}
+
+.table-bordered{
+	text-align: center;
+	background-color: white;
+}
+
+.table-style {
+	width: 100%;
+}
+
+.table-style td {
+	width: 100px;
+}
+
+.info{
+	text-align: center;
+}
+
+.icon .fa-user{
+	position: absolute;
+	bottom: 12px;
+	left: 15px;
+	font-size: 20px;
+	color: #555555;
+	margin-bottom: 5px;
+}
+
+.icon .fa-key{
+	position: absolute;
+	bottom: 12px;
+	left: 15px;
+	font-size: 20px;
+	color: #555555;
+	margin-bottom: 5px;
+}
+
+.icon .fa-lock{
+	position: absolute;
+	bottom: 12px;
+	left: 15px;
+	font-size: 20px;
+	color: #555555;
+	margin-bottom: 5px;
+}
+
+.dropdown {
+	margin: 0 auto;
+}
+
+nav {
+	height: 60px;
+	background: lightblue;
+	box-shadow: 0 10px 15 px rgba(0,0,0,0.1);
+}
+
+nav ul {
+	padding: 0;
+	margin: 0;
+	float: right;
+	margin-right: 30px;
+}
+
+nav ul li {
+	background: lightblue;
+	position: relative;
+	list-style: none;
+	display: inline-block;
+}
+
+nav ul li a {
+	display: block;
+	padding: 0 15px;
+	color: white;
+	text-decoration: none;
+	line-height: 60px;
+	font-size: 20px;
+}
+
+nav ul li a:hover {
+	background: lightpink;
+}
+
+.logo {
+	padding:  15px 0 0 80px;
+	width: 150px;
+	height: auto;
+}
