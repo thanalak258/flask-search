@@ -14,6 +14,7 @@
 	padding-top: 70px;
 	border-radius: 5px;
 	position: relative;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
 .excard h2{
@@ -197,3 +198,34 @@ nav ul li a:hover {
 	width: 150px;
 	height: auto;
 }
+
+.center {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: arial;
+    user-select: none;
+}
+
+.center h1 {
+    color: white;
+    font-size: 70px;
+    font-weight: bold;
+    width: 900px;
+    text-align: center;
+}
+
+#message {
+	display:none;
+	background: #f1f1f1;
+	color: #000;
+	position: relative;
+	padding: 20px;
+	margin-top: 10px;
+  }
+  
+  #message p {
+	padding: 0px 35px;
+	font-size: 10px;
+  }

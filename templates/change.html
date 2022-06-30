@@ -12,7 +12,11 @@
 		<nav>
 			<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/True_Corporation_%28Thailand%29.svg/1280px-True_Corporation_%28Thailand%29.svg.png">
 			<ul>
-				<li><a href="/seach">Search</a></li>
+                {% if session['username'] %}
+                <li>{{ session['username'] }}</li>
+                {% endif %}
+                <li>|</li>
+				<li><a href="/search">Search</a></li>
 				<li>|</li>
 				<li><a href="/changePassword">Change Password</a></li>
 				<li>|</li>
@@ -20,25 +24,25 @@
 			</ul>
 		</nav>
 	</div>
-    <!-- Alert error input -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-            {% if category == 'error' %}
-            <div class="alert alert-danger alter-dismissable fade show" role="alert">
-                {{ message }}
-                 <span aria-hidden="true">&times;</span>
-            </div>
-            {% else %}
-            <div class="alert alert-success alter-dismissable fade show" role="alert">
-                {{ message }}
-                <span aria-hidden="true">&times;</span>
-            </div>
-            {% endif %}
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
 	<div id="page">
+		    <!-- Alert error input -->
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for category, message in messages %}
+				{% if category == 'error' %}
+				<div class="alert alert-danger alter-dismissable fade show" role="alert">
+					{{ message }}
+					 <span aria-hidden="true">&times;</span>
+				</div>
+				{% else %}
+				<div class="alert alert-success alter-dismissable fade show" role="alert">
+					{{ message }}
+					<span aria-hidden="true">&times;</span>
+				</div>
+				{% endif %}
+				{% endfor %}
+			{% endif %}
+			{% endwith %}
 		<div class="background">
 			<div class="wrap">
 				<div class="excard">
@@ -48,23 +52,30 @@
 						<div class="form">
 							<div class="space icon">
 								<label class="label">New Password</label>
-								<input type="text" class="input" name="new_password" placeholder="New Password" autocomplete="off">
+								<input type="text" class="input" name="new_password" id="psw" required='' placeholder="New Password" autocomplete="off">
 								<i class="fa-solid fa-lock"></i>
+							</div>
+							<div id="message">
+								<p>Password must contain the following:</p>
+								<p id="letter" class="invalid">A <b>Lowercase</b> letter</p>
+								<p id="capital" class="invalid">A <b>Capital (uppercase)</b> letter</p>
+								<p id="number" class="invalid">A <b>Number</b></p>
+								<p id="sym" class="invalid">A <b>Special Symbol</b></p>
+								<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+								<p id="maxlength" class="invalid">Maximum <b>16 characters</b></p>
 							</div>
 							<div class="space icon">
 								<label class="label">Confirm Password</label>
-								<input type="text" class="input" name="confirm_password" placeholder="Confirm Password" autocomplete="off">
+								<input type="text" class="input" name="confirm_password" required='' placeholder="Confirm Password" autocomplete="off">
 								<i class="fa-solid fa-lock"></i>
 							</div>
 							<div class="d-grid gap-2 col-6 mx-auto">
-								<button class="btn btn-primary" type="submit" name="search">Change my password</button>
+								<button class="btn btn-primary" type="submit" name="change">Change my password</button>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<!-- table data from mysql -->
-			<hr>
 			<div class="blank"></div>
 		</div>
 		<!-- Boostrap-->
@@ -84,5 +95,6 @@
 				minWidth: 200.00
 			})
 		</script>
+		<script type="text/javascript" src="{{url_for('static', filename='index.js')}}"></script>
 	</body>
 </html>

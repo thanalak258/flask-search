@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='scam.css') }}">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-	<title>Search Scam Call</title>
+	<title>Change Password</title>
 </head>
 <body>
 	<div class="dropdown">
@@ -15,60 +15,66 @@
                 {% if session['username'] %}
                 <li>{{ session['username'] }}</li>
                 {% endif %}
-				<li>|</li>
-				<li><a href="/search">Search</a></li>
-				<li>|</li>
-				<li><a href="/changePassword">Change Password</a></li>
+                <li>|</li>
+				<li><a href="/changePasswordnew">Change Password</a></li>
 				<li>|</li>
 				<li><a href="/logout">Log out</a></li>
 			</ul>
 		</nav>
 	</div>
 	<div id="page">
+		    <!-- Alert error input -->
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for category, message in messages %}
+				{% if category == 'error' %}
+				<div class="alert alert-danger alter-dismissable fade show" role="alert">
+					{{ message }}
+					 <span aria-hidden="true">&times;</span>
+				</div>
+				{% else %}
+				<div class="alert alert-success alter-dismissable fade show" role="alert">
+					{{ message }}
+					<span aria-hidden="true">&times;</span>
+				</div>
+				{% endif %}
+				{% endfor %}
+			{% endif %}
+			{% endwith %}
 		<div class="background">
 			<div class="wrap">
 				<div class="excard">
-					<h2>International Call</h2>
+					<h2>Change Your Password</h2>
 					<!-- card input -->
 					<form action="" method="POST">
 						<div class="form">
 							<div class="space icon">
-								<label class="label">Calling Number</label>
-								<input type="text" class="input" name="calling_number" placeholder="เบอร์โทรที่โทรเข้ามาหาลูกค้า" autocomplete="on">
-								<i class="fa-solid fa-phone"></i>
+								<label class="label">New Password</label>
+								<input type="text" class="input" name="new_password" id="psw" required='' placeholder="New Password" autocomplete="off">
+								<i class="fa-solid fa-lock"></i>
+							</div>
+							<div id="message">
+								<p>Password must contain the following:</p>
+								<p id="letter" class="invalid">A <b>Lowercase</b> letter</p>
+								<p id="capital" class="invalid">A <b>Capital (uppercase)</b> letter</p>
+								<p id="number" class="invalid">A <b>Number</b></p>
+								<p id="sym" class="invalid">A <b>Special Symbol</b></p>
+								<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+								<p id="maxlength" class="invalid">Maximum <b>16 characters</b></p>
 							</div>
 							<div class="space icon">
-								<label class="label">Called Number</label>
-								<input type="text" class="input" name="called_number" placeholder="เบอร์โทรศัพท์ของลูกค้า" autocomplete="on">
-								<i class="fa-solid fa-phone"></i>
-							</div>
-							<div class="space icon">
-								<!-- Start date -->
-								<label class="label">Start Date</label>
-								<input type="text" class="input" name="startdate" required='' placeholder="dd-mm-yyyy">
-								<!-- End date -->
-								<label class="label">End Date</label>
-								<input type="text" class="input" name="enddate" required='' placeholder="dd-mm-yyyy">
+								<label class="label">Confirm Password</label>
+								<input type="text" class="input" name="confirm_password" required='' placeholder="Confirm Password" autocomplete="off">
+								<i class="fa-solid fa-lock"></i>
 							</div>
 							<div class="d-grid gap-2 col-6 mx-auto">
-								<button class="btn btn-primary" type="submit" name="search">Search</button>
+								<button class="btn btn-primary" type="submit" name="change">Change my password</button>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<!-- table data from mysql -->
 			<div class="blank"></div>
-			<div class="info">
-				{% if err %}
-					<h1>No Record Found</h1>
-				{% else %}
-					{% for table in tables %}
-						{{titles[loop.index]}}
-						{{ table|safe }}
-					{% endfor %}
-				{% endif %}
-			</div>
 		</div>
 		<!-- Boostrap-->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -87,5 +93,6 @@
 				minWidth: 200.00
 			})
 		</script>
+		<script type="text/javascript" src="{{url_for('static', filename='index.js')}}"></script>
 	</body>
-	</html>
+</html>

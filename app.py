@@ -80,6 +80,8 @@ def calling_with_date(calling_t, start, end):
             data.append(row)
     
     tst = pandas.DataFrame(data, columns=['id', 'calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk'])
+    blankIndex=[''] * len(tst)
+    tst.index=blankIndex
 
     return tst[['calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk']]
 
@@ -120,6 +122,8 @@ def called_with_date(called_t, start, end):
             data.append(row)
 
     tst = pandas.DataFrame(data, columns=['id', 'calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk'])
+    blankIndex=[''] * len(tst)
+    tst.index=blankIndex
 
     return tst[['calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk']]
 
@@ -160,69 +164,55 @@ def fully_input(calling_t, called_t, start, end):
             data.append(row)
 
     tst = pandas.DataFrame(data, columns=['id', 'calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk'])
+    blankIndex=[''] * len(tst)
+    tst.index=blankIndex
 
     return tst[['calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk']]
 
+@app.route('/')
+def home():
+    return render_template('home.html')
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password'].encode('utf-8')
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cur.execute("SELECT * FROM account WHERE username=%s", (username,))
         user = cur.fetchone()
         cur.close()
 
-        if len(user) > 0:
-            if password== user['password'].encode('utf-8'):
+        if user:
+            if password == user['password']:
                 if user['firstlog'] == 'Y':
                     session['username'] = user['username']
-                    return render_template('search.html')
-                else:
+                    session['id'] = user['id']
+                    return redirect(url_for('search'))
+                elif user['firstlog'] == 'N':
                     session['username'] = user['username']
-                    return render_template('change.html')
+                    session['id'] = user['id']
+                    return redirect(url_for('change_password_new'))
+            else:
+                flash('username or password not match', category='error')
+                return redirect(url_for('login'))
         else:
             flash('username or password not match', category='error')
-            return render_template('login.html')
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password'].encode('utf-8')
-
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT * FROM account WHERE username=%s", (username,))
-        user = cur.fetchone()
-        print(user)
-        cur.close()
-
-        if len(user) > 0:
-            if password == user['password'].encode('utf-8'):
-                if user['firstlog'] == 'Y':
-                    session['username'] = user['username']
-                    return render_template('search.html')
-                elif user['firstlog'] == 'N':
-                    session['username'] = user['username']
-                    return render_template('change.html')
-                else:
-                    flash('username or password not match', category='error')
-                    return render_template('login.html')
-
-        elif len(user) == None:
-            flash('username or password not match', category='error')
-            return render_template('login.html')
-    return render_template('login.html')
+    return redirect(url_for('home'))
 
 @app.route('/changePassword', methods=['GET', 'POST'])
 def change_password():
     if request.method == 'POST':
-        new_pass = request.form.get('new_password').encode('utf-8')
-        confirm_pass = request.form.get('confirm_password').encode('utf-8')
+        new_pass = request.form.get('new_password')
+        confirm_pass = request.form.get('confirm_password')
         log = 'Y'
 
         Special_sym = ['@', '$', '!', '%', '*', '#', '?', '&']
@@ -232,22 +222,22 @@ def change_password():
             if len(new_pass) < 8:
                 flash('length should be at least 8-16.', category='error')
         
-            if len(new_pass) > 16:
+            elif len(new_pass) > 16:
                 flash('length should be not be greater than 16.', category='error')
         
-            if not any(char.isdigit() for char in new_pass):
+            elif not any(char.isdigit() for char in new_pass):
                 flash('Password should have at least one numeral.', category='error')
         
-            if not any(char.isupper() for char in new_pass):
+            elif not any(char.isupper() for char in new_pass):
                 flash('Password should have at least one uppercase letter.', category='error')
         
-            if not any(char.islower() for char in new_pass):
+            elif not any(char.islower() for char in new_pass):
                 flash('Password should have at least one lowercase letter.', category='error')
         
-            if not any(char in Special_sym for char in new_pass):
+            elif not any(char in Special_sym for char in new_pass):
                 flash('Password should have at least one of the symbols @$!%*#?&', category='error')
         
-            if new_pass != confirm_pass:
+            elif new_pass != confirm_pass:
                 flash('Password don\'t match.', category='error')
         
             else:
@@ -256,10 +246,54 @@ def change_password():
                 mysql.connection.commit()
                 flash('Password Change.', category='success')
     
-    else:
-        flash('Please enter your new password', category='error')
+        else:
+            flash('Please enter your new password', category='error')
 
-    return render_template("change.html")
+    return render_template('change.html')
+
+@app.route('/changePasswordnew', methods=['GET', 'POST'])
+def change_password_new():
+    if request.method == 'POST':
+        new_pass = request.form.get('new_password')
+        confirm_pass = request.form.get('confirm_password')
+        log = 'Y'
+
+        Special_sym = ['@', '$', '!', '%', '*', '#', '?', '&']
+
+        if new_pass !='' and confirm_pass != '':
+        
+            if len(new_pass) < 8:
+                flash('length should be at least 8-16.', category='error')
+        
+            elif len(new_pass) > 16:
+                flash('length should be not be greater than 16.', category='error')
+        
+            elif not any(char.isdigit() for char in new_pass):
+                flash('Password should have at least one numeral.', category='error')
+        
+            elif not any(char.isupper() for char in new_pass):
+                flash('Password should have at least one uppercase letter.', category='error')
+        
+            elif not any(char.islower() for char in new_pass):
+                flash('Password should have at least one lowercase letter.', category='error')
+        
+            elif not any(char in Special_sym for char in new_pass):
+                flash('Password should have at least one of the symbols @$!%*#?&', category='error')
+        
+            elif new_pass != confirm_pass:
+                flash('Password don\'t match.', category='error')
+        
+            else:
+                cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cur.execute("UPDATE account SET password = %s, conpassword = %s, firstlog = %s WHERE id = %s", (new_pass, confirm_pass, log, session['id'],))
+                mysql.connection.commit()
+                flash('Password Change.', category='success')
+                return redirect(url_for('search'))
+    
+        else:
+            flash('Please enter your new password', category='error')
+
+    return render_template('changep.html')
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -292,6 +326,9 @@ def search():
             else:
                 os.remove("combined_csv.csv")
                 return render_template("search.html", tables=[res.to_html()], titles=[''])
+        
+        elif calling == '' and called == '' and startDate != '' and endDate != '':
+            return render_template("search.html", err = 'No Record Found' )
 
     return render_template("search.html")
 
