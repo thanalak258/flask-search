@@ -16,34 +16,6 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 
-def calling_fnc(calling_t):
-
-    path = 'C:/Users/Thanalak/PycharmProjects/True/'
-    df = pandas.concat(map(pandas.read_csv, glob.glob(path + "*.csv")))
-    df.to_csv("combined_csv.csv", index=False, encoding='utf-8-sig')
-    csv_file = csv.reader(open('combined_csv.csv', "r"), delimiter=",")
-
-    data = []
-    for row in csv_file:
-        if calling_t == row[1]:
-            data.append(row)
-    return pandas.DataFrame(data, columns=['id', 'calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk'])
-
-
-def called_fnc(called_t):
-
-    path = 'C:/Users/Thanalak/PycharmProjects/True/'
-    df = pandas.concat(map(pandas.read_csv, glob.glob(path + "*.csv")))
-    df.to_csv("combined_csv.csv", index=False, encoding='utf-8-sig')
-    csv_file = csv.reader(open('combined_csv.csv', "r"), delimiter=",")
-
-    data = []
-    for row in csv_file:
-        if called_t == row[2]:
-            data.append(row)
-    return pandas.DataFrame(data, columns=['id', 'calling', 'called', 'date', 'startTime', 'Endtime', 'incomingTrunk'])
-
-
 def calling_with_date(calling_t, start, end):
 
     fileopen_lst = []
@@ -309,7 +281,7 @@ def search():
                 return render_template("search.html", err = 'No Record Found' )
             else:
                 os.remove("combined_csv.csv")
-                return render_template("search.html", tables=[res.to_html()], titles=[''])
+                return render_template("search.html", tables=[res.to_html(justify='center')], titles=[''])
 
         elif calling == '' and called != '' and startDate != '' and endDate != '':
             res = called_with_date(called, startDate, endDate)
@@ -317,7 +289,7 @@ def search():
                 return render_template("search.html", err = 'No Record Found' )
             else:
                 os.remove("combined_csv.csv")
-                return render_template("search.html", tables=[res.to_html()], titles=[''])
+                return render_template("search.html", tables=[res.to_html(justify='center')], titles=[''])
 
         elif calling != '' and called != '' and startDate != '' and endDate != '':
             res = fully_input(calling, called, startDate, endDate)
@@ -325,7 +297,7 @@ def search():
                 return render_template("search.html", err = 'No Record Found' )
             else:
                 os.remove("combined_csv.csv")
-                return render_template("search.html", tables=[res.to_html()], titles=[''])
+                return render_template("search.html", tables=[res.to_html(justify='center')], titles=[''])
         
         elif calling == '' and called == '' and startDate != '' and endDate != '':
             return render_template("search.html", err = 'No Record Found' )
