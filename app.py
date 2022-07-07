@@ -54,7 +54,8 @@ def calling_with_date(calling_t, start, end):
     tst = pandas.DataFrame(data, columns=['id', 'reserved1', 'partial', 'valid_indictor', 'charge_party_indicator', 'answer_time', 'end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'termination_code', 'terminating_reason', 'caller_src', 'called_src', 'connected_number', 'caller_gk_softswitch', 'caller_gw_terminal', 'callee_gk_softswitch', 'callee_gw_terminal', 'caller_roam_ip', 'called_roam_ip', 'incoming_route_id', 'outgoing_route_id', 'rec_type', 'alert_time', 'incoming_ts', 'outgoing_ts', 'dial_number ', 'redirect_number', 'charged_number', 'caller_number_before_change', 'called_number_before_change', 'call_setup_time', 'circuit_seizure_time', 'circuit_release_time', 'caller_seize_duration', 'called_seize_duration', 'call_setup_duration', 'opc', 'dpc', 'bearer_service', 'net_type', 'caller_port', 'called_port'])
     blankIndex = [''] * len(tst)
     tst.index = blankIndex
-    return tst[['end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'connected_number', 'incoming_route_id', 'outgoing_route_id', 'dial_number ', 'redirect_number', 'call_setup_time']]
+    tst.rename(columns={'end_time':'End Time', 'conversation_time':'Duration Sec', 'caller_number':'Calling Numbe', 'called_number':'Called Number', 'trunk_group_in':'Trunk In No.', 'trunk_group_out':'Trunk  Out No.', 'connected_number':'Connected Number', 'incoming_route_id':'Trunk In Name', 'outgoing_route_id':'Trunk Out Name', 'dial_number ':'Dial Number', 'redirect_number':'Redirect Number', 'call_setup_time':'Start Time'}, inplace=True)
+    return tst[['End Time', 'Duration Sec', 'Calling Numbe', 'Called Number', 'Trunk In No.', 'Trunk  Out No.', 'Connected Number', 'Trunk In Name', 'Trunk Out Name', 'Dial Number', 'Redirect Number', 'Start Time']]
 
 
 def called_with_date(called_t, start, end):
@@ -95,7 +96,8 @@ def called_with_date(called_t, start, end):
     tst = pandas.DataFrame(data, columns=['id', 'reserved1', 'partial', 'valid_indictor', 'charge_party_indicator', 'answer_time', 'end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'termination_code', 'terminating_reason', 'caller_src', 'called_src', 'connected_number', 'caller_gk_softswitch', 'caller_gw_terminal', 'callee_gk_softswitch', 'callee_gw_terminal', 'caller_roam_ip', 'called_roam_ip', 'incoming_route_id', 'outgoing_route_id', 'rec_type', 'alert_time', 'incoming_ts', 'outgoing_ts', 'dial_number ', 'redirect_number', 'charged_number', 'caller_number_before_change', 'called_number_before_change', 'call_setup_time', 'circuit_seizure_time', 'circuit_release_time', 'caller_seize_duration', 'called_seize_duration', 'call_setup_duration', 'opc', 'dpc', 'bearer_service', 'net_type', 'caller_port', 'called_port'])
     blankIndex = [''] * len(tst)
     tst.index = blankIndex
-    return tst[['end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'connected_number', 'incoming_route_id', 'outgoing_route_id', 'dial_number ', 'redirect_number', 'call_setup_time']]
+    tst.rename(columns={'end_time':'End Time', 'conversation_time':'Duration Sec', 'caller_number':'Calling Numbe', 'called_number':'Called Number', 'trunk_group_in':'Trunk In No.', 'trunk_group_out':'Trunk  Out No.', 'connected_number':'Connected Number', 'incoming_route_id':'Trunk In Name', 'outgoing_route_id':'Trunk Out Name', 'dial_number ':'Dial Number', 'redirect_number':'Redirect Number', 'call_setup_time':'Start Time'}, inplace=True)
+    return tst[['End Time', 'Duration Sec', 'Calling Numbe', 'Called Number', 'Trunk In No.', 'Trunk  Out No.', 'Connected Number', 'Trunk In Name', 'Trunk Out Name', 'Dial Number', 'Redirect Number', 'Start Time']]
 
 
 def fully_input(calling_t, called_t, start, end):
@@ -136,7 +138,8 @@ def fully_input(calling_t, called_t, start, end):
     tst = pandas.DataFrame(data, columns=['id', 'reserved1', 'partial', 'valid_indictor', 'charge_party_indicator', 'answer_time', 'end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'termination_code', 'terminating_reason', 'caller_src', 'called_src', 'connected_number', 'caller_gk_softswitch', 'caller_gw_terminal', 'callee_gk_softswitch', 'callee_gw_terminal', 'caller_roam_ip', 'called_roam_ip', 'incoming_route_id', 'outgoing_route_id', 'rec_type', 'alert_time', 'incoming_ts', 'outgoing_ts', 'dial_number ', 'redirect_number', 'charged_number', 'caller_number_before_change', 'called_number_before_change', 'call_setup_time', 'circuit_seizure_time', 'circuit_release_time', 'caller_seize_duration', 'called_seize_duration', 'call_setup_duration', 'opc', 'dpc', 'bearer_service', 'net_type', 'caller_port', 'called_port'])
     blankIndex = [''] * len(tst)
     tst.index = blankIndex
-    return tst[['end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'connected_number', 'incoming_route_id', 'outgoing_route_id', 'dial_number ', 'redirect_number', 'call_setup_time']]
+    tst.rename(columns={'end_time':'End Time', 'conversation_time':'Duration Sec', 'caller_number':'Calling Numbe', 'called_number':'Called Number', 'trunk_group_in':'Trunk In No.', 'trunk_group_out':'Trunk  Out No.', 'connected_number':'Connected Number', 'incoming_route_id':'Trunk In Name', 'outgoing_route_id':'Trunk Out Name', 'dial_number ':'Dial Number', 'redirect_number':'Redirect Number', 'call_setup_time':'Start Time'}, inplace=True)
+    return tst[['End Time', 'Duration Sec', 'Calling Numbe', 'Called Number', 'Trunk In No.', 'Trunk  Out No.', 'Connected Number', 'Trunk In Name', 'Trunk Out Name', 'Dial Number', 'Redirect Number', 'Start Time']]
 
 @app.route('/')
 def home():
