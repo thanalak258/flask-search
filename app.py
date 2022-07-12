@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
+from numpy import dtype
 import pandas
 from datetime import date
 import glob
@@ -49,9 +50,15 @@ def calling_with_date(calling_t, start, end):
     data = []
     for row in csv_file:
         if calling_t == row[8]:
+            row[8] = int(float(row[8]))
+            row[9] = int(float(row[9]))
+            row[6] = int(float(row[6]))
+            row[34] = int(float(row[34]))
             data.append(row)
-    
+
     tst = pandas.DataFrame(data, columns=['id', 'reserved1', 'partial', 'valid_indictor', 'charge_party_indicator', 'answer_time', 'end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'termination_code', 'terminating_reason', 'caller_src', 'called_src', 'connected_number', 'caller_gk_softswitch', 'caller_gw_terminal', 'callee_gk_softswitch', 'callee_gw_terminal', 'caller_roam_ip', 'called_roam_ip', 'incoming_route_id', 'outgoing_route_id', 'rec_type', 'alert_time', 'incoming_ts', 'outgoing_ts', 'dial_number ', 'redirect_number', 'charged_number', 'caller_number_before_change', 'called_number_before_change', 'call_setup_time', 'circuit_seizure_time', 'circuit_release_time', 'caller_seize_duration', 'called_seize_duration', 'call_setup_duration', 'opc', 'dpc', 'bearer_service', 'net_type', 'caller_port', 'called_port'])
+    tst['end_time'] = pandas.to_datetime(tst['end_time'], format='%y%m%d%H%M%S')
+    tst['call_setup_time'] = pandas.to_datetime(tst['call_setup_time'], format='%y%m%d%H%M%S')
     blankIndex = [''] * len(tst)
     tst.index = blankIndex
     tst.rename(columns={'end_time':'End Time', 'conversation_time':'Duration (sec.)', 'caller_number':'Calling Numbe', 'called_number':'Called Number', 'trunk_group_in':'Trunk In No.', 'trunk_group_out':'Trunk  Out No.', 'connected_number':'Connected Number', 'incoming_route_id':'Trunk In Name', 'outgoing_route_id':'Trunk Out Name', 'dial_number ':'Dial Number', 'redirect_number':'Redirect Number', 'call_setup_time':'Start Time'}, inplace=True)
@@ -91,9 +98,15 @@ def called_with_date(called_t, start, end):
     data = []
     for row in csv_file:
         if called_t == row[9]:
+            row[8] = int(float(row[8]))
+            row[9] = int(float(row[9]))
+            row[6] = int(float(row[6]))
+            row[34] = int(float(row[34]))
             data.append(row)
 
     tst = pandas.DataFrame(data, columns=['id', 'reserved1', 'partial', 'valid_indictor', 'charge_party_indicator', 'answer_time', 'end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'termination_code', 'terminating_reason', 'caller_src', 'called_src', 'connected_number', 'caller_gk_softswitch', 'caller_gw_terminal', 'callee_gk_softswitch', 'callee_gw_terminal', 'caller_roam_ip', 'called_roam_ip', 'incoming_route_id', 'outgoing_route_id', 'rec_type', 'alert_time', 'incoming_ts', 'outgoing_ts', 'dial_number ', 'redirect_number', 'charged_number', 'caller_number_before_change', 'called_number_before_change', 'call_setup_time', 'circuit_seizure_time', 'circuit_release_time', 'caller_seize_duration', 'called_seize_duration', 'call_setup_duration', 'opc', 'dpc', 'bearer_service', 'net_type', 'caller_port', 'called_port'])
+    tst['end_time'] = pandas.to_datetime(tst['end_time'], format='%y%m%d%H%M%S')
+    tst['call_setup_time'] = pandas.to_datetime(tst['call_setup_time'], format='%y%m%d%H%M%S')
     blankIndex = [''] * len(tst)
     tst.index = blankIndex
     tst.rename(columns={'end_time':'End Time', 'conversation_time':'Duration (sec.)', 'caller_number':'Calling Numbe', 'called_number':'Called Number', 'trunk_group_in':'Trunk In No.', 'trunk_group_out':'Trunk  Out No.', 'connected_number':'Connected Number', 'incoming_route_id':'Trunk In Name', 'outgoing_route_id':'Trunk Out Name', 'dial_number ':'Dial Number', 'redirect_number':'Redirect Number', 'call_setup_time':'Start Time'}, inplace=True)
@@ -133,9 +146,15 @@ def fully_input(calling_t, called_t, start, end):
     data = []
     for row in csv_file:
         if called_t == row[9] and calling_t == row[8]:
+            row[8] = int(float(row[8]))
+            row[9] = int(float(row[9]))
+            row[6] = int(float(row[6]))
+            row[34] = int(float(row[34]))
             data.append(row)
 
     tst = pandas.DataFrame(data, columns=['id', 'reserved1', 'partial', 'valid_indictor', 'charge_party_indicator', 'answer_time', 'end_time', 'conversation_time', 'caller_number', 'called_number', 'trunk_group_in', 'trunk_group_out', 'termination_code', 'terminating_reason', 'caller_src', 'called_src', 'connected_number', 'caller_gk_softswitch', 'caller_gw_terminal', 'callee_gk_softswitch', 'callee_gw_terminal', 'caller_roam_ip', 'called_roam_ip', 'incoming_route_id', 'outgoing_route_id', 'rec_type', 'alert_time', 'incoming_ts', 'outgoing_ts', 'dial_number ', 'redirect_number', 'charged_number', 'caller_number_before_change', 'called_number_before_change', 'call_setup_time', 'circuit_seizure_time', 'circuit_release_time', 'caller_seize_duration', 'called_seize_duration', 'call_setup_duration', 'opc', 'dpc', 'bearer_service', 'net_type', 'caller_port', 'called_port'])
+    tst['end_time'] = pandas.to_datetime(tst['end_time'], format='%y%m%d%H%M%S')
+    tst['call_setup_time'] = pandas.to_datetime(tst['call_setup_time'], format='%y%m%d%H%M%S')
     blankIndex = [''] * len(tst)
     tst.index = blankIndex
     tst.rename(columns={'end_time':'End Time', 'conversation_time':'Duration (sec.)', 'caller_number':'Calling Numbe', 'called_number':'Called Number', 'trunk_group_in':'Trunk In No.', 'trunk_group_out':'Trunk  Out No.', 'connected_number':'Connected Number', 'incoming_route_id':'Trunk In Name', 'outgoing_route_id':'Trunk Out Name', 'dial_number ':'Dial Number', 'redirect_number':'Redirect Number', 'call_setup_time':'Start Time'}, inplace=True)
