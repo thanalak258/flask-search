@@ -12,8 +12,9 @@
 		<nav>
 			<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/True_Corporation_%28Thailand%29.svg/1280px-True_Corporation_%28Thailand%29.svg.png">
 			<ul>
+				<i class="fa-solid fa-user"></i>
                 {% if session['username'] %}
-                <li>{{ session['username'] }}</li>
+                <li style="padding: 0 15px; color: white; text-decoration: none; line-height: 60px; font-size: 20px;">{{ session['username'] }}</li>
                 {% endif %}
                 <li>|</li>
 				<li><a href="/changePasswordnew">Change Password</a></li>
