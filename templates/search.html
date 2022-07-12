@@ -59,15 +59,17 @@
 			</div>
 			<!-- table data from mysql -->
 			<div class="blank"></div>
-			<div class="info">
-				{% if err %}
-					<h1>No Record Found</h1>
-				{% else %}
-					{% for table in tables %}
-						{{titles[loop.index]}}
-						{{ table|safe }}
-					{% endfor %}
-				{% endif %}
+			<div>
+				<div class="info">
+					{% if err %}
+						<h1>No Record Found</h1>
+					{% else %}
+						{% for table in tables %}
+							{{titles[loop.index]}}
+							{{ table|safe }}
+						{% endfor %}
+					{% endif %}
+				</div>
 			</div>
 		</div>
 		<!-- Boostrap-->

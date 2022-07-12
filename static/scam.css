@@ -5,6 +5,10 @@
 	font-family: sans-serif;
 }
 
+.wrap {
+	margin: auto;
+}
+
 .excard {
 	background: #f8f8f8;
 	max-width: 500px;
@@ -82,9 +86,7 @@
 }
 
 .background{
-	margin: auto;
-	width: 50%;
-	padding: 115px;
+	padding-top: 35px;
 }
 
 .blank {
