@@ -53,6 +53,7 @@ def calling_with_date(calling_t, start, end):
             row[8] = int(float(row[8]))
             row[9] = int(float(row[9]))
             row[6] = int(float(row[6]))
+            row[16] = int(float(row[16]))
             row[34] = int(float(row[34]))
             data.append(row)
 
@@ -101,6 +102,7 @@ def called_with_date(called_t, start, end):
             row[8] = int(float(row[8]))
             row[9] = int(float(row[9]))
             row[6] = int(float(row[6]))
+            row[16] = int(float(row[16]))
             row[34] = int(float(row[34]))
             data.append(row)
 
@@ -149,6 +151,7 @@ def fully_input(calling_t, called_t, start, end):
             row[8] = int(float(row[8]))
             row[9] = int(float(row[9]))
             row[6] = int(float(row[6]))
+            row[16] = int(float(row[16]))
             row[34] = int(float(row[34]))
             data.append(row)
 
