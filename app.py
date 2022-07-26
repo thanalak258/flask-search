@@ -1,7 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_mysqldb import MySQL, MySQLdb
-import bcrypt
-from numpy import dtype
 import pandas
 from datetime import date
 import glob
